@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "ES2020",
+    "lib": ["ES2016", "DOM"],
+    "sourceMap": true,
+    "strict": true,
+    "removeComments": true, // 移除掉注释
+    "esModuleInterop": true, // 用ES的模块化方式和非ES交互
+    "moduleResolution": "node", // 模块解析方式
+    "isolatedModules": true
+  },
+  "include": ["./src"]
+}
