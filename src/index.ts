@@ -10,7 +10,13 @@ sq.point = {
 }
 sq.viewer = new SquarePageViewer(sq, $('#root'))
 
-
+const sq2 = new Square()
+sq2.color = 'red'
+sq2.point = {
+    x: 4,
+    y: 0
+}
+sq2.viewer = new SquarePageViewer(sq2, $('#root'))
 
 $('#down').on('click', () => {
     console.log(sq.viewer)
@@ -18,6 +24,12 @@ $('#down').on('click', () => {
         x: sq.point.x,
         y: sq.point.y + 1
     }
+
+    sq2.point = {
+        x: sq2.point.x,
+        y: sq2.point.y + 1
+    }
+
 })
 
 $('#remove').on('click', () => {
