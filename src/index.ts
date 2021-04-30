@@ -1,37 +1,17 @@
-import Square from "./core/Square";
 import { SquarePageViewer } from "./core/viewer/SquarePageViewer";
+import SquareGroup from "./core/SquareGroup";
 import $ from 'jquery'
 
-const sq = new Square()
-sq.color = 'red'
-sq.point = {
-    x: 3,
-    y: 0
-}
-sq.viewer = new SquarePageViewer(sq, $('#root'))
+const type = [{x: -2, y: 0}, {x: -1, y: 0}, {x: 0, y: 0}, {x: 0, y: 1}]
+const sqGroup = new SquareGroup(type, {x: 3, y: 4}, 'red')
 
-const sq2 = new Square()
-sq2.color = 'red'
-sq2.point = {
-    x: 4,
-    y: 0
-}
-sq2.viewer = new SquarePageViewer(sq2, $('#root'))
-
-$('#down').on('click', () => {
-    console.log(sq.viewer)
-    sq.point = {
-        x: sq.point.x,
-        y: sq.point.y + 1
-    }
-
-    sq2.point = {
-        x: sq2.point.x,
-        y: sq2.point.y + 1
-    }
-
+sqGroup.squares.forEach(it => {
+    it.viewer = new SquarePageViewer(it, $('#root'))
 })
-
-$('#remove').on('click', () => {
-    sq.viewer && sq.viewer.remove()
+console.log(sqGroup)
+$('#down').on('click', () => {
+    sqGroup.centerPoint = {
+        x: sqGroup.centerPoint.x,
+        y: sqGroup.centerPoint.y + 1
+    }
 })
