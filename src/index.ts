@@ -1,9 +1,9 @@
 import { SquarePageViewer } from "./core/viewer/SquarePageViewer";
 import SquareGroup from "./core/SquareGroup";
+import { createTeris } from './core/Teris'
 import $ from 'jquery'
 
-const type = [{x: -2, y: 0}, {x: -1, y: 0}, {x: 0, y: 0}, {x: 0, y: 1}]
-const sqGroup = new SquareGroup(type, {x: 3, y: 4}, 'red')
+const sqGroup = createTeris({ x: 3, y: 4 })
 
 sqGroup.squares.forEach(it => {
     it.viewer = new SquarePageViewer(it, $('#root'))

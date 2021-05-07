@@ -2,8 +2,8 @@ import Square from './Square'
 import { IPoint, Shape } from './types'
 
 export default class SquareGroup {
-    private _squares: readonly Square[] = []
-
+    private _squares: readonly Square[] = [] // 方块位置数组
+    
     public get squares () {
         return this._squares
     }
@@ -12,6 +12,7 @@ export default class SquareGroup {
         this._squares = val
     }
 
+    // 方块类型
     public get shape () {
         return this._shape
     }
@@ -20,10 +21,12 @@ export default class SquareGroup {
         this._shape = val
     }
 
+    // 中心点
     public get centerPoint () {
         return this._centerPoint
     }
 
+    // 设置方块的位置
     private setSquaresPoint () {
         this._shape.forEach((it, i) => {
             this._squares[i].point = {
@@ -40,7 +43,7 @@ export default class SquareGroup {
 
     constructor (private _shape: Shape, private _centerPoint: IPoint, private color: string) {
         const arr: Square[] = []
-        this._shape.forEach(({x, y}) => {
+        this._shape.forEach(() => {
             const sq = new Square()
             sq.color = this.color
             arr.push(sq)
