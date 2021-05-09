@@ -1,17 +1,26 @@
 import { SquarePageViewer } from "./core/viewer/SquarePageViewer";
-import SquareGroup from "./core/SquareGroup";
-import { createTeris } from './core/Teris'
+import { TerisRule } from './core/TerisRule'
+import { createTeris, TShape } from './core/Teris'
 import $ from 'jquery'
+import { Direction } from "./core/types";
 
-const sqGroup = createTeris({ x: 3, y: 4 })
+const teris = createTeris({ x: 3, y: 4 })
 
-sqGroup.squares.forEach(it => {
+teris.squares.forEach(it => {
     it.viewer = new SquarePageViewer(it, $('#root'))
 })
-console.log(sqGroup)
 $('#down').on('click', () => {
-    sqGroup.centerPoint = {
-        x: sqGroup.centerPoint.x,
-        y: sqGroup.centerPoint.y + 1
-    }
+    TerisRule.move(teris, Direction.down)
+})
+
+$('#right').on('click', () => {
+    TerisRule.move(teris, Direction.right)
+})
+
+$('#left').on('click', () => {
+    TerisRule.move(teris, { x: teris.centerPoint.x - 1, y: teris.centerPoint.y })
+})
+
+$('#rotate').on('click', () => {
+    TerisRule.rotate(teris)
 })

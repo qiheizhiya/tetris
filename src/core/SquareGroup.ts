@@ -51,4 +51,24 @@ export default class SquareGroup {
         this._squares = arr
         this.setSquaresPoint()
     }
+    protected isClock = true // 顺时针， false 逆时针
+
+    afterRotateShape(): Shape {
+        if (this.isClock) {
+            return this._shape.map(p => ({
+                x: -p.y,
+                y: p.x
+            }))
+        }
+        return this._shape.map(p => ({
+            x: p.y,
+            y: -p.x
+        }))
+    }
+
+    rotate () {
+        const newShape = this.afterRotateShape()
+        this._shape = newShape
+        this.setSquaresPoint()
+    }
 }
