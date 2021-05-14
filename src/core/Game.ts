@@ -1,4 +1,5 @@
 import GameConfig from "./GameConfig";
+import Square from "./Square";
 import SquareGroup from "./SquareGroup";
 import { createTeris } from "./Teris";
 import { TerisRule } from "./TerisRule";
@@ -16,6 +17,8 @@ export class Game {
     private _timer?: number
     // 
     private _duration: number = 1000
+
+    private _downDatas: Square[] = []
 
     constructor (private _viewer: GameViewer) {
         this.resetCenterPoint(pageConfig.nextSize.width, this._nextTeris)
@@ -49,17 +52,17 @@ export class Game {
 
     control_left () {
         if (this._curTeris && this._gameStatus === GameStatus.playing) {
-            TerisRule.move(this._curTeris, Direction.left)
+            TerisRule.move(this._curTeris, Direction.left, this._downDatas)
         }
     }
     control_right () {
         if (this._curTeris && this._gameStatus === GameStatus.playing) {
-            TerisRule.move(this._curTeris, Direction.right)
+            TerisRule.move(this._curTeris, Direction.right, this._downDatas)
         }
     }
     control_down () {
         if (this._curTeris && this._gameStatus === GameStatus.playing) {
-            TerisRule.moveDirection(this._curTeris, Direction.down)
+            TerisRule.moveDirection(this._curTeris, Direction.down, this._downDatas)
         }
     }
     /**
@@ -69,7 +72,12 @@ export class Game {
         if (this._timer || this._gameStatus !== GameStatus.playing) return
         this._timer = setInterval(() => {
             if (this._curTeris) {
-                TerisRule.move(this._curTeris, Direction.down)
+                const isCd = TerisRule.move(this._curTeris, Direction.down, this._downDatas)
+                console.log(isCd)
+                if(!isCd) { // 触底了
+                    this._downDatas = [...this._downDatas, ...this._curTeris.squares]
+                    this.switchTeris()
+                }
             }
         }, this._duration)
     }
