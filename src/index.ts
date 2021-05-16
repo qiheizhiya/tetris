@@ -1,17 +1,24 @@
-import createTetris, { ErectShape, LOppositeShape, LShape, SoilShpae, SOppositeShape, SShape, TianShape } from "./self/Shapes";
-import SquareGroup from "./self/SquareGroup";
-import SquareViewer from "./self/viewer/SquareViewer";
+import GamePageViewer from './self/viewer/GamePageViewer';
+import Game from "./self/Game";
 import $ from 'jquery'
-import Square from "./self/Square";
-const sqGroup = createTetris({ x: 3, y: 3 })
+const game = new Game(new GamePageViewer())
 
-sqGroup.squares.forEach(sq => {
-  sq.viewer = new SquareViewer(sq, $("#panel"))
-})
+game.start()
 
-$('.bottom').on('click', () => {
-  sqGroup.centerPoint = {
-    x: sqGroup.centerPoint.x,
-    y: sqGroup.centerPoint.y + 1
-  }
+$(document).on('keydown', (e) => {
+    switch (e.which) {
+        case 38:
+            game.control_rotate()
+            return;
+        case 39:
+            game.control_right()
+            return
+        case 37:
+            game.control_left()
+            return
+        case 40:
+            game.control_down()
+        default:
+            break;
+    }
 })
